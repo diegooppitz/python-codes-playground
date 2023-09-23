@@ -1,0 +1,17 @@
+também conhecida como tabela hash, é uma estrutura de dados que permite armazenar 
+e recuperar informações de forma eficiente. Ela é baseada em um conceito chamado função de hash,
+que mapeia dados de entrada para uma posição específica em uma estrutura de armazenamento, geralmente um vetor.
+
+A ideia principal por trás de uma hash table é evitar a necessidade de percorrer todos os elementos
+para encontrar um valor específico. 
+Em vez disso, a função de hash é usada para calcular a posição em que o valor deve estar armazenado.
+Isso permite uma busca rápida e eficiente.
+
+uma hashtable é uma estrutura de dados que usa uma função de hash para armazenar e recuperar valores associados a determinadas chaves. 
+Os objetos que são usados como chaves em uma hashtable devem ser hashables, 
+o que significa que eles devem ser imutáveis e possuir um valor de hash fixo. 
+Essa propriedade de ser hashable é importante para permitir que a hashtable calcule o índice correto 
+onde os pares chave-valor serão armazenados e recuperados de forma eficiente.
+
+um bom exemplo de hashTable é o dict em python
+
