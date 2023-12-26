@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include  # Importando a função include
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('banking/', include('banking.urls')),  # Incluindo as URLs do app banking
+    path('banking/', include('banking.urls')),
 ]
