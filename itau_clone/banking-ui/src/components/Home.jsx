@@ -1,19 +1,21 @@
 
 
 import React, { useEffect, useState } from 'react';
+import HomeBanking from './Banking';
 
 const Home = () => {
-    const [accontData, setAccountData] = useState('');
-    const fetchData = () => {
-        const endpoint = "http://localhost:8000/api/bank-accounts/";
-        fetch(endpoint)
-            .then(({ data }) => {
-                console.log("data", data);
-                setAccountData(data);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+    const [accountData, setAccountData] = useState('');
+
+    const fetchData = async () => {
+        const endpoint = "http://localhost:8000/banking/bank-account/";
+        try {
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            
+            if (data) setAccountData(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     }
 
     useEffect(() => {
@@ -22,8 +24,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Itau Home</h1>
-            <div>{accontData}</div>
+            <HomeBanking accountData={accountData} />
         </div>
     );
 }
