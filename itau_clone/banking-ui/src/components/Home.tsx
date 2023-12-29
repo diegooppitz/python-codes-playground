@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import HomeBanking from './Banking';
 
 const Home = () => {
-    const [accountData, setAccountData] = useState('');
+    const [accountData, setAccountData] = useState({ balance: null, name: null, id: null });
 
     const fetchData = async () => {
         const endpoint = "http://localhost:8000/banking/bank-account/";

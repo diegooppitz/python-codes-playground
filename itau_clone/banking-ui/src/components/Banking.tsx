@@ -1,8 +1,10 @@
 
+import React, { useEffect } from 'react'
+import { AccountData } from '../interfaces';
 
-import React, { useEffect } from 'react';
 
-const HomeBanking = ({ accountData }) => {
+
+const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     useEffect(() => {
         console.log("account data componnent", accountData)
     }, [])
