@@ -1,8 +1,8 @@
 from django.urls import path, re_path
-from .views import BankAccountListCreate
+from .views import AccountCreate, AccountDetail
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('bank-account/', BankAccountListCreate.as_view(), name='account-data'),
-    re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
+    path('account/create/', AccountCreate.as_view(), name='account-create'),
+    path('account/<str:account_id>/', AccountDetail.as_view(), name='account-detail'),
 ]

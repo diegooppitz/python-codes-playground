@@ -1,12 +1,12 @@
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.response import Response
-from .models import BankAccount
-from .serializers import BankAccountSerializer
+from rest_framework import generics
+from .models import Account
+from .serializers import AccountSerializer
 
-class BankAccountListCreate(ListCreateAPIView):
-    queryset = BankAccount.objects.all()
-    serializer_class = BankAccountSerializer
+class AccountCreate(generics.CreateAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
 
-    def get(self, request, *args, **kwargs):
-        data = { 'id': 10, 'name': 'Will Johnson', 'balance': 10000 }
-        return Response(data)
+class AccountDetail(generics.RetrieveAPIView):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+    lookup_field = 'account_id'
