@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import BankAccount
+from .models import Account
 
-class BankAccountSerializer(serializers.ModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BankAccount
-        fields = ['id', 'owner', 'balance', 'created_at']
+        model = Account
+        fields = ['id', 'name', 'account_id', 'created_at', 'balance', 'birth_date']
