@@ -14,7 +14,7 @@ const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) =>
             <h1>Itau Banking</h1>
             <div>
                 <p>Balance: {accountData.balance}</p>
-                <p>Name: </p>
+                <p>Name: {accountData.name}</p>
             </div>
         </div>
     );
