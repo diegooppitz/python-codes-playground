@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import HomeBanking from './Banking';
+import BankHeader from './BankHeader';
 
 const Home = () => {
     const [accountData, setAccountData] = useState({ balance: null, name: null, id: null });
@@ -12,7 +13,7 @@ const Home = () => {
             const response = await fetch(endpoint);
             const data = await response.json();
             console.log("data", data)
-            
+
             if (data) setAccountData(data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -24,7 +25,10 @@ const Home = () => {
     }, [])
 
     return (
-        <HomeBanking accountData={accountData} />
+        <div>
+            <BankHeader />
+            <HomeBanking accountData={accountData} />
+        </div>
     );
 }
 
