@@ -1,11 +1,11 @@
 
 
 import React, { useEffect, useState } from 'react';
-import HomeBanking from './Banking';
+import HomeBanking from './HomeBanking';
 import BankHeader from './BankHeader';
 
 const Home = () => {
-    const [accountData, setAccountData] = useState({ balance: null, name: null, id: null });
+    const [accountData, setAccountData] = useState({ balance: null, name: null, account_id: null });
 
     const fetchData = async () => {
         const endpoint = "http://127.0.0.1:8000/banking/accounts/3223242/";
@@ -26,7 +26,7 @@ const Home = () => {
 
     return (
         <div>
-            <BankHeader />
+            <BankHeader accountData={accountData} />
             <HomeBanking accountData={accountData} />
         </div>
     );

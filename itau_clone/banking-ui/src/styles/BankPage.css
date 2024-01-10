@@ -1,13 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-}
-
 /* Page container */
 .bank-page {
   max-width: 1200px;
@@ -25,21 +15,13 @@ body {
 }
 
 .bank-logo {
-  /* Add logo styles here */
+  height: 50px;
+  width: 50px;
 }
 
 .bank-user-info {
   font-size: 0.85rem;
   color: #666;
-}
-
-/* Main advertising section */
-.bank-ad {
-  background-color: #ff8200; /* Orange color for call to action */
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  position: relative;
 }
 
 .bank-ad p {
@@ -63,11 +45,21 @@ body {
 }
 
 /* Menu Items */
-.bank-menu {
-  background-color: #f7f7f7;
-  padding: 15px 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+.bank-main {
+  display: flex;
+  padding: 10px;
+  gap: 40px;
+}
+
+.bank-menu-infos {
+  width: 60%;
+}
+
+.bank-menu-other-infos {
+  display: flex;
+  flex-direction: column;
+  margin-top: 55px;
+  width: 30%;
   gap: 10px;
 }
 
@@ -84,24 +76,6 @@ body {
 
 .menu-item:hover {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Document items */
-.bank-documents {
-  background-color: #fff;
-  padding: 15px 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.documents-item {
-  color: #555;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
 }
 
 /* Footer */

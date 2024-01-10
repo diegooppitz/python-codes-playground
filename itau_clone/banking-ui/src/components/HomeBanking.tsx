@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { AccountData } from '../interfaces';
+import AccordionItem from './AccordionItem';
 import '../styles/BankPage.css';
 
 
@@ -26,23 +27,23 @@ import '../styles/BankPage.css';
 const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (
         <div className="bank-main">
-            <div className="bank-ad">
-                <p>COLOQUE A SUA FATURA NO DÉBITO AUTOMÁTICO.</p>
-                <button className="btn-register">cadastre-se</button>
+            <div className="bank-menu-infos">
+                <h3>Olá { accountData.name }, está é a sua página inicial</h3>
+                <AccordionItem title="Saldo e Extrato da Conta">
+                    <p>Saldo: { accountData.balance }</p>
+                </AccordionItem>
+                <AccordionItem title="Cartões">
+                    
+                </AccordionItem>
+                <AccordionItem title="Crédito">=
+                    <p>Até 90 dias para começar a pagar! Confira disponibilidade. Sujeito à análise.</p>
+                </AccordionItem>
             </div>
-            <div className="bank-menu">
-                <div className="menu-item">Saldo e Extrato da Conta</div>
-                <div className="menu-item">Cartões</div>
-                <div className="menu-item">Crédito</div>
+            <div className="bank-menu-other-infos">
                 <div className="menu-item">Pagamentos</div>
                 <div className="menu-item">Transferências</div>
                 <div className="menu-item">Pix</div>
                 <div className="menu-item">Open Finance</div>
-            </div>
-            <div className="bank-documents">
-                <div className="documents-item">Extrato mensal consolidado</div>
-                <div className="documents-item">Informe de rendimentos</div>
-                <div className="documents-item">pasta de documentos</div>
             </div>
         </div>
     );

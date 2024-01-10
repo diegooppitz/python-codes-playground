@@ -1,13 +1,15 @@
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import { AccountData } from '../interfaces';
+import LogoImg from '../assets/logo.png';
 import '../styles/BankPage.css';
 
-const BankHeader = () => {
+const BankHeader: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (
         <header className="bank-header">
-            {/* <img className="bank-logo" /> */}
-            <span className="bank-user-info">ag: 1617 c/c: 34042-5</span>
+            <img className="bank-logo" src={LogoImg} />
+            <span className="bank-user-info">c/c: { accountData.account_id}</span>
         </header>
     );
 }
