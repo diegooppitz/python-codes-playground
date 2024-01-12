@@ -29,8 +29,8 @@ const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) =>
         <div className="bank-main">
             <div className="bank-menu-infos">
                 <h3>Olá { accountData.name }, está é a sua página inicial</h3>
-                <AccordionItem title="Saldo e Extrato da Conta">
-                    <p>Saldo: { accountData.balance }</p>
+                <AccordionItem title="Saldo">
+                    <p>Saldo: R$ { accountData.balance }</p>
                 </AccordionItem>
                 <AccordionItem title="Cartões">
                     
