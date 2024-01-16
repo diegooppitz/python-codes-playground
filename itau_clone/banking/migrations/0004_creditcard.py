@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('bill_date', models.DateField()),
                 ('month_bill', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('total_bill', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='banking.account')),
+                ('account_number', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='banking.account')),
             ],
         ),
     ]
