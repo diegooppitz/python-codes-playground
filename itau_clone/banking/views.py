@@ -5,6 +5,9 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, DestroyAPIVi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import logging
+
+logger = logging.getLogger('django')
 
 
 
@@ -28,6 +31,7 @@ class AccountDelete(DestroyAPIView):
 
 class CreditCardCreate(APIView):
     def post(self, request, format=None):
+        logger.info(f"Request data: {request.data}")
         serializer = CreditCardSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
