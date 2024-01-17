@@ -45,14 +45,14 @@
 }
 
 /* Menu Items */
-.bank-main {
+.bank-menu {
   display: flex;
   padding: 10px;
   gap: 40px;
 }
 
 .bank-menu-infos {
-  width: 60%;
+  width: 50%;
 }
 
 .bank-menu-other-infos {
@@ -77,6 +77,30 @@
 .menu-item:hover {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+.bank-menu-cards {
+
+}
+
+.bank-menu-cards-header,
+.bank-menu-cards-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bank-menu-cards-header h4,
+.bank-menu-cards-content p {
+  width: 30%;
+  text-align: right;
+}
+
+.bank-menu-cards-header h4:first-child,
+.bank-menu-cards-content p:first-child {
+  width: 60%;
+  text-align: left;
+}
+
 
 /* Footer */
 .bank-footer {
