@@ -1,29 +1,9 @@
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AccountData } from '../interfaces';
 import AccordionItem from './AccordionItem';
 import '../styles/BankPage.css';
 import CreditCards from './CreditCards';
-
-
-
-// const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
-//     useEffect(() => {
-//         console.log("account data componnent", accountData)
-//     }, [])
-
-//     return (
-//         <div>
-//             <h1>Itau Banking</h1>
-//             <div>
-//                 <p>Balance: {accountData.balance}</p>
-//                 <p>Name: {accountData.name}</p>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default HomeBanking;
 
 const HomeBanking: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (

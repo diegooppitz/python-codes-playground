@@ -1,6 +1,7 @@
 export interface CreditCard {
   account_number: string;
   card_number: string;
+  card_name: string;
   bill_date: string;
   month_bill: string;
   total_bill: string;
