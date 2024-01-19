@@ -1,9 +1,8 @@
 
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AccountData } from '../interfaces';
 import LogoImg from '../assets/logo.png';
-import '../styles/BankPage.css';
 
 const BankHeader: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (

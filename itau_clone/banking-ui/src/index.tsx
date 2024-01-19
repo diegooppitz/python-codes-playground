@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './scss/Base.scss';
 
 // Adicionando ! para garantir que o elemento não será null
 const rootElement = document.getElementById('root')!;

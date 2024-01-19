@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { CreditCard } from '../interfaces';
-import '../styles/BankPage.css';
 
 const CreditCards: React.FC<{ creditCards: CreditCard[] }> = ({ creditCards }) => {
     return (

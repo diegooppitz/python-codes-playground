@@ -1,5 +1,4 @@
 import React, { useState, FunctionComponent } from 'react';
-import '../styles/AccordionItem.css';
 
 type AccordionItemProps = {
   title: string;
