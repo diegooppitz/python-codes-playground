@@ -14,9 +14,11 @@ class Account(models.Model):
 class CreditCard(models.Model):
     account_number = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='credit_cards', to_field='account_id')
     card_number = models.CharField(max_length=16)
+    card_name = models.CharField(max_length=100)
     bill_date = models.DateField()
     month_bill = models.DecimalField(max_digits=10, decimal_places=2)
     total_bill = models.DecimalField(max_digits=10, decimal_places=2)
+
 
     def __str__(self):
         return f"{self.account_number.name} - {self.card_number}"

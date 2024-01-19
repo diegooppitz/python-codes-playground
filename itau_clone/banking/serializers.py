@@ -5,7 +5,7 @@ from .models import Account, CreditCard
 class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreditCard
-        fields = ['account_number', 'card_number', 'bill_date', 'month_bill', 'total_bill']
+        fields = ['account_number', 'card_number', 'card_name', 'bill_date', 'month_bill', 'total_bill',]
 
     def create(self, validated_data):
         account = validated_data.pop('account_number')
