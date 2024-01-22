@@ -3,8 +3,8 @@ export interface CreditCard {
   card_number: string;
   card_name: string;
   bill_date: string;
-  month_bill: string;
   total_bill: string;
+  month_bill?: string;
 }
 export interface AccountData {
     balance: number | null;
