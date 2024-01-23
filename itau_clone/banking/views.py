@@ -1,5 +1,5 @@
 # from rest_framework import generics
-from .models import Account
+from .models import Account, CreditCard
 from .serializers import AccountSerializer, CreditCardSerializer
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
@@ -8,7 +8,6 @@ from rest_framework import status
 import logging
 
 logger = logging.getLogger('django')
-
 
 
 class AccountsList(ListAPIView):
@@ -37,3 +36,8 @@ class CreditCardCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CreditCardDelete(DestroyAPIView):
+    queryset = CreditCard.objects.all()
+    serializer_class = CreditCardSerializer
+    lookup_field = 'card_number'
