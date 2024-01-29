@@ -8,7 +8,7 @@ const Home = () => {
     const [accountData, setAccountData] = useState({ balance: null, name: null, account_id: null, credit_cards: [] });
 
     const fetchData = async () => {
-        const endpoint = "http://127.0.0.1:8000/banking/accounts/123456/";
+        const endpoint = "http://127.0.0.1:8000/banking/accounts/83227809/";
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
