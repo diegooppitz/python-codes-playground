@@ -1,0 +1,60 @@
+.balance-statements-details {
+    display: flex;
+
+    .statements-detail {
+        width: 65%;
+
+        .statements-header,
+        .statements-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            padding: 0 10px;
+            border: 1px solid #ccc;
+        }
+    
+        .statements-title {
+            font-size: 12px;
+            font-weight: 700;
+        }
+    
+        .statements-body {
+            border-top: 0;
+    
+            &.even-row {
+                background-color: #f1f2f4;
+            }
+        }
+    
+        .statements-text {
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+
+    .balance-detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 35%;
+        gap: 25px;
+
+        .balance-container {
+            max-width: 70%;
+        }
+
+            p {
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+            }
+          
+            span {
+              font-size: 22px;
+              font-weight: 700;
+              color: #007a47;
+            }
+    }
+}
