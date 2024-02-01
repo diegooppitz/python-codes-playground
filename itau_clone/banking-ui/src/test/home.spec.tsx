@@ -1,9 +1,9 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import CreditCards from '../components/CreditCards';
+import CreditCards from '../components/credit_cards/';
 import { CreditCard } from '../interfaces';
-import BalanceDetail from '../components/BalanceDetail';
+import BalanceDetail from '../components/balance_detail/';
 
 
 describe('HomeBanking Component', () => {

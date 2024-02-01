@@ -1,11 +1,12 @@
 import React, { useState, FunctionComponent } from 'react';
+import "./AccordionItem.scss"
 
-type AccordionItemProps = {
+type AccordionProps = {
   title: string;
   children: React.ReactNode;
 };
 
-const AccordionItem: FunctionComponent<AccordionItemProps> = ({ title, children }) => {
+const Accordion: FunctionComponent<AccordionProps> = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,4 +21,4 @@ const AccordionItem: FunctionComponent<AccordionItemProps> = ({ title, children 
   );
 };
 
-export default AccordionItem;
+export default Accordion;

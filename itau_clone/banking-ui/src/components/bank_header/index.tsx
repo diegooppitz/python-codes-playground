@@ -1,8 +1,9 @@
 
 
 import React from 'react'
-import { AccountData } from '../interfaces';
-import LogoImg from '../assets/logo.png';
+import { AccountData } from '../../interfaces';
+import LogoImg from '../../assets/logo.png';
+import './BankHeader.scss';
 
 const BankHeader: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (

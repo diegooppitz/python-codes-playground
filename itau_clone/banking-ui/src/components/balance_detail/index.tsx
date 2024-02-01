@@ -1,10 +1,11 @@
 
 
 import React from 'react'
-import { AccountData } from '../interfaces';
+import { AccountData } from '../../interfaces';
+import "./BalanceDetail.scss"
 
 const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
-    const transcationsData = [{ date: '30/01', description: 'PIX TRANSF jeff', amount: 360 }, { date: '30/01', description: 'PIX TRANSF jeff', amount: 360 }]
+    const transactionsData = [{ date: '01/02', description: 'PIX TRANSF john', amount: 200 }, { date: '30/01', description: 'PIX TRANSF jeff', amount: 360 }, { date: '30/01', description: 'PIX TRANSF will', amount: 480 }]
 
     return (
         <div className='balance-statements-details'>
@@ -15,7 +16,7 @@ const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) 
                     <div className='statements-title'>Valor (R$)</div>
                 </div>
 
-                {transcationsData && transcationsData.map((transaction, index) => (
+                {transactionsData && transactionsData.map((transaction, index) => (
                     <div className={`statements-body ${index % 2 === 0 ? 'even-row' : ''}`} key={index}>
                         <div className="statements-text">{transaction.date}</div>
                         <div className="statements-text">{transaction.description}</div>

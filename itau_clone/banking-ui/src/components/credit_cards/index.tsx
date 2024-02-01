@@ -1,7 +1,8 @@
 
 
 import React from 'react'
-import { CreditCard } from '../interfaces';
+import { CreditCard } from '../../interfaces';
+import './CreditCards.scss'
 
 const CreditCards: React.FC<{ creditCards: CreditCard[] }> = ({ creditCards }) => {
     return (

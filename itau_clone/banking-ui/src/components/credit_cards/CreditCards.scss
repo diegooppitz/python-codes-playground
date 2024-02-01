@@ -1,0 +1,29 @@
+.bank-menu-cards-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .bank-menu-cards-cell {
+    text-align: center;
+    border-left: solid 1px #ccc;
+    width: 20%;
+  }
+  
+  .bank-menu-cards-cell:first-child {
+    width: 45%;
+    border: none;
+  }
+  
+  .bank-menu-cards-cell:last-child {
+    width: 15%;
+  }
+  
+  .bank-menu-cards-cell h4,
+  .bank-menu-cards-cell p {
+    font-size: 12px;
+  }
+  
+  .bank-menu-cards-cell h4 {
+    margin-bottom: 5px;
+  }
