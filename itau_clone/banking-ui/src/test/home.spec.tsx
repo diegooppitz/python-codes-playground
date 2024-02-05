@@ -1,8 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import CreditCards from '../components/credit_cards/';
 import { CreditCard } from '../interfaces';
+import CreditCards from '../components/credit_cards/';
 import BalanceDetail from '../components/balance_detail/';
 
 
@@ -17,20 +17,18 @@ describe('HomeBanking Component', () => {
     it('should render correct title and balance details', () => {
         render(<BalanceDetail accountData={mockAccountData} />);
 
-        const balanceText = screen.getByText('saldo em conta corrente:');
+        const balanceText = screen.getByText('saldo em conta:');
         expect(balanceText).toBeInTheDocument();
 
         const balanceValue = screen.getByText('R$ 500');
         expect(balanceValue).toBeInTheDocument();
 
-        const overdraftText = screen.getByText('Cheque especial disponível:');
+        const overdraftText = screen.getByText('Cheque especial:');
         expect(overdraftText).toBeInTheDocument();
 
         const overdraftValue = screen.getByText('R$ 1000.00');
         expect(overdraftValue).toBeInTheDocument();
     });
-
-    // Outros testes conforme necessário
 });
 
 describe('CreditCards Component', () => {
