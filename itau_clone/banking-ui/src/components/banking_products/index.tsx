@@ -5,6 +5,7 @@ import Accordion from '../accordion/';
 import CreditCards from '../credit_cards/';
 import BalanceDetail from '../balance_detail/';
 import './BankingProducts.scss';
+import Loans from '../loans';
 
 const BankingProducts: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (
@@ -18,7 +19,7 @@ const BankingProducts: React.FC<{ accountData: AccountData }> = ({ accountData }
                     <CreditCards creditCards={accountData.credit_cards} />
                 </Accordion>
                 <Accordion title="Crédito">
-                    <p>Até 90 dias para começar a pagar! Confira disponibilidade. Sujeito à análise.</p>
+                    <Loans />
                 </Accordion>
             </div>
             <div className="bank-menu-other-infos">

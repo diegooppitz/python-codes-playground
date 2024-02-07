@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './Base.scss';
 
-// Adicionando ! para garantir que o elemento não será null
 const rootElement = document.getElementById('root')!;
 
-// Passando rootElement para createRoot
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
@@ -14,5 +12,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-// reportWebVitals();

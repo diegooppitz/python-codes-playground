@@ -1,0 +1,25 @@
+.loans {
+    .loans-info-banner {
+        display: flex;
+        align-items: center;
+        background-color: #106eb0;
+        color: #fff;
+        padding: 10px 15px;
+        font-size: 14px;
+
+        p {
+            padding-left: 10px;
+        }
+    }
+
+    .loans-info {
+        position: relative;
+        margin-top: 10px;
+
+        .loans-info-button {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+        }
+    }
+}
