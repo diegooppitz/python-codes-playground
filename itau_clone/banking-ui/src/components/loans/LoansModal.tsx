@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Modal, Box, Typography, Button, Divider } from '@mui/material';
 
 interface LoansModalProps {
     setIsModalOpen: (value: boolean) => void;
@@ -8,25 +8,47 @@ interface LoansModalProps {
     selectedMonths: number;
 }
 
+interface PaymentDate {
+    month: string;
+    normalDate: Date;
+    formattedDate: string;
+}
+
 const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, selectedAmount, selectedMonths }) => {
     const [totalAmount, setTotalAmount] = useState(0);
+    const [paymentsDates, setPaymentsDates] = useState<PaymentDate[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '60%',
-        bgcolor: 'background.paper',
-        borderRadius: 2,
-        boxShadow: 24,
-        p: 4,
+    const configPaymentsDates = () => {
+        const monthsArray: number[] = Array.from({ length: 12 }, (_, i) => i);
+
+        const firstPaymentDate = new Date();
+        firstPaymentDate.setDate(firstPaymentDate.getDate() + 30);
+
+        const newPaymentsDates: PaymentDate[] = monthsArray.map(monthOffset => {
+            const newPaymentDate = new Date(firstPaymentDate.getFullYear(), firstPaymentDate.getMonth() + monthOffset, firstPaymentDate.getDate());
+            const formattedDate = `${String(newPaymentDate.getDate()).padStart(2, '0')}/${String(newPaymentDate.getMonth() + 1).padStart(2, '0')}`;
+            const monthName = newPaymentDate.toLocaleString('pt-BR', { month: 'long' });
+
+            return {
+                month: monthName,
+                normalDate: newPaymentDate,
+                formattedDate: formattedDate,
+            };
+        });
+
+        setPaymentsDates(newPaymentsDates);
     };
 
+    const configData = () => {
+
+        setTotalAmount(Number(selectedAmount) * 1.1)
+
+        configPaymentsDates()
+    }
+
     useEffect(() => {
-        console.log("aqui", Number(selectedAmount) * 1.1)
-        if (selectedAmount) setTotalAmount(selectedAmount => Number(selectedAmount) * 1.1)
+        if (selectedAmount) configData();
     }, [selectedAmount])
 
     useEffect(() => {
@@ -34,28 +56,42 @@ const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, se
     }, [totalAmount])
 
     return (
-        <Modal
-            open={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box>
-                {!loading && (
-                    <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h4" component="h4" sx={{ pb: 5 }}>
-                            Conclua a solicitação de empréstimo
+        <>
+            {!loading && (
+                <Modal
+                    open={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                >
+                    <Box className="loans-modal-content">
+                        <Typography id="modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+                            Solicitação de Empréstimo
                         </Typography>
 
-                        <Typography id="modal-modal-title" variant="h4" component="h4" sx={{ pb: 5 }}>
-                            Valor total: {totalAmount}
+                        <Divider sx={{ mb: 2 }} />
+
+                        <Typography variant="body1" sx={{ mb: 2 }}>
+                            Valor total: R$ {totalAmount}
                         </Typography>
 
-                        <Button className="loans-info-button" variant="contained" sx={{ float: 'right' }}>Confirmar</Button>
+                        <Box sx={{ mb: 2 }}>
+                            {paymentsDates.map((paymentDate, index) => (
+                                <Typography key={index} variant="body2" sx={{ mb: 1 }}>
+                                    {paymentDate.month}: {paymentDate.formattedDate}
+                                </Typography>
+                            ))}
+                        </Box>
+
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button onClick={() => setIsModalOpen(false)} sx={{ mr: 1, color: "error.main" }}>Cancelar</Button>
+                            <Button variant="contained">Confirmar</Button>
+                        </Box>
                     </Box>
-                )}
-            </Box>
-        </Modal>
+                </Modal>
+
+            )}
+        </>
     )
 }
 

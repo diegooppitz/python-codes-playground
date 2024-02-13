@@ -102,13 +102,11 @@ const Loans = () => {
     setIsModalOpen(true);
   }
 
-  console.log("selected amount", selectedAmount)
-
   return (
     <div className='loans'>
-      <LoansInfoBanner title="Até 90 dias para começar a pagar! Confira disponibilidade. Sujeito à análise." />
+      <LoansInfoBanner title="Até 30 dias para começar a pagar! Confira disponibilidade. Sujeito à análise." />
       <LoansInfo hireService={hireService} setSelectedAmount={setSelectedAmount} setSelectedMonths={setSelectedMonths} selectedMonths={selectedMonths} />
-      <LoansModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} selectedAmount={selectedAmount} selectedMonths={selectedMonths} />
+      {isModalOpen && <LoansModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} selectedAmount={selectedAmount} selectedMonths={selectedMonths} /> }
     </div>
   );
 };
