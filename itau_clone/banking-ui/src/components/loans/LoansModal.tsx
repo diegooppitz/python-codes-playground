@@ -5,50 +5,57 @@ interface LoansModalProps {
     setIsModalOpen: (value: boolean) => void;
     isModalOpen: boolean;
     selectedAmount: string;
-    selectedMonths: number;
+    numberOfInstallments: number;
 }
 
 interface PaymentDate {
-    month: string;
+    month?: string;
     normalDate: Date;
     formattedDate: string;
+    installmentAmount: number;
 }
 
-const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, selectedAmount, selectedMonths }) => {
+const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, selectedAmount, numberOfInstallments }) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [paymentsDates, setPaymentsDates] = useState<PaymentDate[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const configPaymentsDates = () => {
-        const monthsArray: number[] = Array.from({ length: 12 }, (_, i) => i);
+    const calculateLoanWithInterest = (): number => {
+        const interestRate = 0.06; // 6% per month
+        const newTotalAmount = Number(selectedAmount) * Math.pow((1 + interestRate), numberOfInstallments);
+        const installmentAmount = newTotalAmount / numberOfInstallments;
+
+        const formattedTotalAmount = Number(newTotalAmount.toFixed(2));
+        const formattedInstallmentAmount = Number(installmentAmount.toFixed(2));
+
+        setTotalAmount(formattedTotalAmount);
+
+        return formattedInstallmentAmount;
+    };
+
+    const calculatePaymentSchedule = () => {
+        const installmentAmount = calculateLoanWithInterest();
 
         const firstPaymentDate = new Date();
         firstPaymentDate.setDate(firstPaymentDate.getDate() + 30);
-
-        const newPaymentsDates: PaymentDate[] = monthsArray.map(monthOffset => {
-            const newPaymentDate = new Date(firstPaymentDate.getFullYear(), firstPaymentDate.getMonth() + monthOffset, firstPaymentDate.getDate());
-            const formattedDate = `${String(newPaymentDate.getDate()).padStart(2, '0')}/${String(newPaymentDate.getMonth() + 1).padStart(2, '0')}`;
-            const monthName = newPaymentDate.toLocaleString('pt-BR', { month: 'long' });
+        const paymentDates: PaymentDate[] = Array.from({ length: numberOfInstallments }, (_, i) => {
+            const paymentDate = new Date(firstPaymentDate.getFullYear(), firstPaymentDate.getMonth() + i, firstPaymentDate.getDate());
+            const formattedDate = `${String(paymentDate.getDate()).padStart(2, '0')}/${String(paymentDate.getMonth() + 1).padStart(2, '0')}/${paymentDate.getFullYear()}`;
+            const monthName = paymentDate.toLocaleString('pt-BR', { month: 'long' });
 
             return {
-                month: monthName,
-                normalDate: newPaymentDate,
-                formattedDate: formattedDate,
+                monthName,
+                normalDate: paymentDate,
+                formattedDate,
+                installmentAmount,
             };
         });
 
-        setPaymentsDates(newPaymentsDates);
+        setPaymentsDates(paymentDates);
     };
 
-    const configData = () => {
-
-        setTotalAmount(Number(selectedAmount) * 1.1)
-
-        configPaymentsDates()
-    }
-
     useEffect(() => {
-        if (selectedAmount) configData();
+        if (selectedAmount) calculatePaymentSchedule();
     }, [selectedAmount])
 
     useEffect(() => {
@@ -78,7 +85,7 @@ const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, se
                         <Box sx={{ mb: 2 }}>
                             {paymentsDates.map((paymentDate, index) => (
                                 <Typography key={index} variant="body2" sx={{ mb: 1 }}>
-                                    {paymentDate.month}: {paymentDate.formattedDate}
+                                    Parcela {index + 1} - {paymentDate.formattedDate}: R$ {paymentDate.installmentAmount}
                                 </Typography>
                             ))}
                         </Box>
