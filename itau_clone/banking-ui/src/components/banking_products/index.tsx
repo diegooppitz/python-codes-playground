@@ -6,8 +6,11 @@ import CreditCards from '../credit_cards/';
 import BalanceDetail from '../balance_detail/';
 import './BankingProducts.scss';
 import Loans from '../loans';
+import OtherActions from '../other_actions';
 
 const BankingProducts: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
+
+
     return (
         <div className="bank-menu">
             <div className="bank-menu-infos">
@@ -22,12 +25,8 @@ const BankingProducts: React.FC<{ accountData: AccountData }> = ({ accountData }
                     <Loans />
                 </Accordion>
             </div>
-            <div className="bank-menu-other-infos">
-                <div className="menu-item">Pagamentos</div>
-                <div className="menu-item">Transferências</div>
-                <div className="menu-item">Pix</div>
-                <div className="menu-item">Open Finance</div>
-            </div>
+
+            <OtherActions accountData={accountData} />
         </div>
     );
 }
