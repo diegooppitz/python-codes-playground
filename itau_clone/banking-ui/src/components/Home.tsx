@@ -13,7 +13,6 @@ const Home = () => {
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
-            console.log("data", data)
 
             if (data) setAccountData(data);
         } catch (error) {

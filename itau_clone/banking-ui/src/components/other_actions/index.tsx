@@ -12,7 +12,7 @@ const OtherActions: React.FC<{ accountData: AccountData }> = ({ accountData }) =
                 <div className="menu-item" onClick={() => setIsModalOpen(true)}>Enviar Pix</div>
                 <div className="menu-item">Open Finance</div>
             </div>
-            <PixModal isOpen={isModalOpen} userBalance={accountData.balance} onClose={() => setIsModalOpen(false)} />
+            <PixModal isOpen={isModalOpen} accountData={accountData} onClose={() => setIsModalOpen(false)} />
         </>
     )
 }
