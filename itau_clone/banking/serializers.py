@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Account, CreditCard
-
+from .models import Account, CreditCard, BalanceDetail
 
 class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +10,7 @@ class CreditCardSerializer(serializers.ModelSerializer):
         account = validated_data.pop('account_number')
 
         return CreditCard.objects.create(account_number=account, **validated_data)
+
 class AccountSerializer(serializers.ModelSerializer):
 
     credit_cards = CreditCardSerializer(many=True, read_only=True)
@@ -18,4 +18,9 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ['name', 'account_id', 'created_at', 'balance', 'birth_date', 'credit_cards']
+
+class BalanceDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BalanceDetail
+        fields = '__all__'
 

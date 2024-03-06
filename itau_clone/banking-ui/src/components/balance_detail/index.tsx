@@ -1,39 +1,79 @@
 
 
-import React from 'react'
-import { AccountData } from '../../interfaces';
+import React, { useEffect, useState } from 'react'
+import { AccountData, BalanceDetailTransactions } from '../../interfaces';
 import "./BalanceDetail.scss"
 
 const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
-    const transactionsData = [{ date: '01/02', description: 'PIX TRANSF john', amount: 200 }, { date: '30/01', description: 'PIX TRANSF jeff', amount: 360 }, { date: '30/01', description: 'PIX TRANSF will', amount: 480 }]
+    const [transactionsData, setTransactionsData] = useState<BalanceDetailTransactions[]>([]);
+    const [hasData, setHasData] = useState(true);
+    const API_URL = 'http://127.0.0.1:8000/banking/'
+    const accountId = accountData?.account_id;
+
+    const fetchData = async () => {
+        if (!accountId) return;
+        const endpoint = `${API_URL}accounts/${accountId}/balance_detail/`;
+        try {
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            setTransactionsData(data)
+            console.log("data balance", data)
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const formatDate = (dateString: string): string | null => {
+        if (!dateString) return null;
+        const date = new Date(dateString);
+      
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() é baseado em zero
+        const year = date.getFullYear();
+      
+        return `${day}/${month}/${year}`;
+      }
+
+    useEffect(() => {
+        if (transactionsData?.length) setHasData(false);
+    }, [transactionsData])
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     return (
-        <div className='balance-statements-details'>
-            <div className='statements-detail'>
-                <div className="statements-header">
-                    <div className='statements-title'>Data</div>
-                    <div className='statements-title'>Descrição</div>
-                    <div className='statements-title'>Valor (R$)</div>
-                </div>
+        <div>
+            {!hasData && (
+                <div className='balance-statements-details'>
+                    <div className='statements-detail'>
+                        <div className="statements-header">
+                            <div className='statements-title'>Data</div>
+                            <div className='statements-title'>Descrição</div>
+                            <div className='statements-title'>Valor (R$)</div>
+                        </div>
 
-                {transactionsData && transactionsData.map((transaction, index) => (
-                    <div className={`statements-body ${index % 2 === 0 ? 'even-row' : ''}`} key={index}>
-                        <div className="statements-text">{transaction.date}</div>
-                        <div className="statements-text">{transaction.description}</div>
-                        <div className="statements-text">{transaction.amount}</div>
+                        {transactionsData && transactionsData.map((transaction, index) => (
+                            <div className={`statements-body ${index % 2 === 0 ? 'even-row' : ''}`} key={index}>
+                                <div className="statements-text">{formatDate(transaction.date)}</div>
+                                <div className="statements-text">{transaction.description}</div>
+                                <div className="statements-text">{transaction.amount}</div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <div className='balance-detail'>
-                <div className='balance-container'>
-                    <p>saldo em conta:</p>
-                    <span>R$ {accountData.balance}</span>
+                    <div className='balance-detail'>
+                        <div className='balance-container'>
+                            <p>saldo em conta:</p>
+                            <span>R$ {accountData.balance}</span>
+                        </div>
+                        <div className="balance-container">
+                            <p>Cheque especial:</p>
+                            <span>R$ 1000.00</span>
+                        </div>
+                    </div>
                 </div>
-                <div className="balance-container">
-                    <p>Cheque especial:</p>
-                    <span>R$ 1000.00</span>
-                </div>
-            </div>
+            )}
         </div>
     );
 }

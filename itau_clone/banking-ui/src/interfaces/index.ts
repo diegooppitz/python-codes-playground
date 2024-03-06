@@ -1,3 +1,10 @@
+export interface AccountData {
+  balance: number | null;
+  name: string | null;
+  account_id: number | null;
+  credit_cards: CreditCard[] | [];
+}
+
 export interface CreditCard {
   account_number: string;
   card_number: string;
@@ -6,9 +13,10 @@ export interface CreditCard {
   total_bill: string;
   month_bill?: string;
 }
-export interface AccountData {
-    balance: number | null;
-    name: string | null;
-    account_id: number | null;
-    credit_cards: CreditCard[] | [];
-  }
+export interface BalanceDetailTransactions {
+  id: number;
+  date: string;
+  description: string;
+  amount: string;
+  account_number: string;
+}

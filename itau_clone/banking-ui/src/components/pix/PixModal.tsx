@@ -76,7 +76,11 @@ const PixModal: React.FC<PixModalProps> = ({ isOpen, onClose, accountData }) => 
     const confirmPix = async () => {
         await handlePix();
         setOpenSuccessMessage(true)
-        closeModal();
+
+        setTimeout(() => {
+            closeModal();
+            window.location.href = '/';
+        }, 1000)
     };
 
     const handlePix = async () => {

@@ -15,6 +15,15 @@ class Account(models.Model):
     def __str__(self):
         return self.name
 
+class BalanceDetail(models.Model):
+    account_number = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='balance_detail', to_field='account_id')
+    date = models.DateTimeField(default=timezone.now)
+    description = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.description} - {self.amount} - {self.date}"
+
 class CreditCard(models.Model):
     account_number = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='credit_cards', to_field='account_id')
     card_number = models.CharField(max_length=8, unique=True, default= generate_number_id)
@@ -26,3 +35,4 @@ class CreditCard(models.Model):
 
     def __str__(self):
         return f"{self.account_number.name} - {self.card_number}"
+    
