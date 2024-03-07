@@ -18,6 +18,7 @@ class Account(models.Model):
 class BalanceDetail(models.Model):
     account_number = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='balance_detail', to_field='account_id')
     date = models.DateTimeField(default=timezone.now)
+    type = models.CharField(max_length=10)
     description = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 

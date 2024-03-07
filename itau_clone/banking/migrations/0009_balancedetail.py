@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
+                ('type', models.CharField(max_length=10)),
                 ('description', models.CharField(max_length=255)),
                 ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('account_number', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='balance_detail', to='banking.account', to_field='account_id')),

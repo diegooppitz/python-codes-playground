@@ -91,11 +91,13 @@ class PixTransferAPIView(APIView):
 
                 BalanceDetail.objects.create(
                     account_number=sender_account,
+                    type="sent",
                     description="Transferência enviada",
                     amount=-amount
                 )
                 BalanceDetail.objects.create(
                     account_number=recipient_account,
+                    type="received",
                     description="Transferência recebida",
                     amount=amount
                 )

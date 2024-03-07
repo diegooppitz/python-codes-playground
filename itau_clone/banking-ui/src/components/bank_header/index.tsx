@@ -8,7 +8,7 @@ import './BankHeader.scss';
 const BankHeader: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     return (
         <header className="bank-header">
-            <img className="bank-logo" src={LogoImg} />
+            <a href='/'><img className="bank-logo" alt="Itau Logo" src={LogoImg} /></a>
             <span className="bank-user-info">c/c: { accountData.account_id}</span>
         </header>
     );

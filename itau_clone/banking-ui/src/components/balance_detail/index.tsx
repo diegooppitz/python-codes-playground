@@ -6,7 +6,7 @@ import "./BalanceDetail.scss"
 
 const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) => {
     const [transactionsData, setTransactionsData] = useState<BalanceDetailTransactions[]>([]);
-    const [hasData, setHasData] = useState(true);
+    const [hasData, setHasData] = useState(false);
     const API_URL = 'http://127.0.0.1:8000/banking/'
     const accountId = accountData?.account_id;
 
@@ -29,14 +29,18 @@ const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) 
         const date = new Date(dateString);
       
         const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() é baseado em zero
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const year = date.getFullYear();
       
         return `${day}/${month}/${year}`;
       }
 
+    const rowType = (rowType: string) => {
+        return rowType === 'sent' ? 'transaction-negative' : 'transaction-plus';
+    }
+
     useEffect(() => {
-        if (transactionsData?.length) setHasData(false);
+        if (transactionsData?.length) setHasData(true);
     }, [transactionsData])
 
     useEffect(() => {
@@ -45,7 +49,7 @@ const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) 
 
     return (
         <div>
-            {!hasData && (
+            {hasData && (
                 <div className='balance-statements-details'>
                     <div className='statements-detail'>
                         <div className="statements-header">
@@ -58,7 +62,7 @@ const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) 
                             <div className={`statements-body ${index % 2 === 0 ? 'even-row' : ''}`} key={index}>
                                 <div className="statements-text">{formatDate(transaction.date)}</div>
                                 <div className="statements-text">{transaction.description}</div>
-                                <div className="statements-text">{transaction.amount}</div>
+                                <div className={`statements-text ${rowType(transaction.type)}`}>{transaction.amount}</div>
                             </div>
                         ))}
                     </div>
