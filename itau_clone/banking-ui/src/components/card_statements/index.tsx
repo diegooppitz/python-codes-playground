@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+
+interface Statement {
+  id: number;
+  date: string;
+  type: string;
+  description: string;
+  amount: string;
+  account_number?: string;
+}
 
 const CardStatements = () => {
   const [hasData] = useState(false);
+  const [statements, setStatements] = useState<Statement[]>([]);
+  let { cardNumber } = useParams();
+  console.log("user id", cardNumber)
+
+  const API_URL = 'http://127.0.0.1:8000/banking/'
 
   const formatDate = (dateString: string): string | null => {
     if (!dateString) return null;
@@ -15,30 +30,27 @@ const CardStatements = () => {
     return `${day}/${month}/${year}`;
   };
 
-  const transactionsData = [
-    {
-      id: 1,
-      date: "2024-03-07T13:07:27.385325Z",
-      type: "sent",
-      description: "mercearia do alemão",
-      amount: "-100.00",
-      account_number: "83227809"
-    },
-    {
-      id: 3,
-      date: "2024-03-07T13:07:46.833692Z",
-      type: "sent",
-      description: "Farmácia da esquina",
-      amount: "-150.00",
-      account_number: "83227809"
-    },
-  ];
+  const fetchData = () => {
+    fetch(`${API_URL}credit-cards/statements/${cardNumber}/`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => setStatements(data))
+      .catch(error => console.error("There was a problem with your fetch operation:", error));
+  }
+
+  useEffect(() => {
+    if (cardNumber) fetchData();
+  }, [cardNumber])
 
   return (
-    <div style={{ padding: '20px' }}> {/* Adiciona padding ao container principal */}
-      <Typography variant="h4" sx={{ margin: '20px 0', textAlign: 'center' }}>Extrato do cartão: id</Typography>
-      <TableContainer component={Paper} elevation={3} sx={{ marginTop: 4, marginBottom: 4, overflow: 'hidden' }}>
+    <div className='credit-card-statements'>
+      <Typography variant="h4" sx={{ margin: '20px 0', textAlign: 'center' }}>Extrato do cartão: {cardNumber}</Typography>
         {!hasData ? (
+          <TableContainer component={Paper} elevation={3} sx={{ marginTop: 1, overflow: 'hidden' }}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -48,26 +60,26 @@ const CardStatements = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactionsData.map((transaction, index) => (
+              {statements.map((statement, index) => (
                 <TableRow
-                  key={transaction.id}
+                  key={statement.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: index % 2 === 0 ? 'action.hover' : 'background.paper' }}
                 >
                   <TableCell component="th" scope="row">
-                    {formatDate(transaction.date)}
+                    {formatDate(statement.date)}
                   </TableCell>
-                  <TableCell>{transaction.description}</TableCell>
-                  <TableCell align="right" sx={{ color: transaction.amount.startsWith('-') ? 'error.main' : 'success.main' }}>
-                    {transaction.amount}
+                  <TableCell>{statement.description}</TableCell>
+                  <TableCell align="right" sx={{ color: statement.amount.startsWith('-') ? 'error.main' : 'success.main' }}>
+                    {statement.amount}
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          </TableContainer>
         ) : (
-          <div>Não há dados para exibir.</div>
+          <div className='statements-no-data'>Não há dados para exibir.</div>
         )}
-      </TableContainer>
     </div>
   );
 }

@@ -40,3 +40,12 @@ class CreditCard(models.Model):
     def __str__(self):
         return f"{self.account_number.name} - {self.card_number}"
     
+class CreditCardStatementDetail(models.Model):
+    credit_card = models.ForeignKey(CreditCard, on_delete=models.CASCADE, related_name='statements')
+    date = models.DateTimeField(default=timezone.now)
+    transaction_type = models.CharField(max_length=10)
+    description = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.description} - {self.amount} - {self.date}"

@@ -1,34 +1,50 @@
-.bank-menu-cards-row {
+.credit-card-statements {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 90%;
+  padding: 0 20px;
+
+  .bank-menu-cards-cell {
+    text-align: center;
+    border-left: solid 1px #ccc;
+    width: 20%;
+  
+    a {
+      text-decoration: none;
+      color: #106eb0;
+      font-weight: 700;
+    }
+  
+    &:first-child {
+      width: 45%;
+      border: none;
+    }
+  
+    &:last-child {
+      width: 15%;
+    }
+  
+    h4,
+    p {
+      font-size: 12px;
+    }
+  
+    h4 {
+      margin-bottom: 5px;
+    }
+  }
+
+  .bank-menu-cards-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .statements-no-data {
+    
+  }
 }
 
-.bank-menu-cards-cell {
-  text-align: center;
-  border-left: solid 1px #ccc;
-  width: 20%;
 
-  a {
-    text-decoration: none;
-    color: #00008B;
-  }
-
-  &:first-child {
-    width: 45%;
-    border: none;
-  }
-
-  &:last-child {
-    width: 15%;
-  }
-
-  h4,
-  p {
-    font-size: 12px;
-  }
-
-  h4 {
-    margin-bottom: 5px;
-  }
-}

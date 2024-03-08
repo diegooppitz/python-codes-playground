@@ -29,7 +29,7 @@ function App() {
       <BankHeader accountData={accountData} />
       <Routes>
         <Route path="/" element={<BankingProducts accountData={accountData} />} />
-        <Route path="/card-statements" element={<CardStatements />} />
+        <Route path="/card-statements/:cardNumber" element={<CardStatements />} />
       </Routes>
     </BrowserRouter>
   );

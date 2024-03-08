@@ -17,7 +17,6 @@ const BalanceDetail: React.FC<{ accountData: AccountData }> = ({ accountData }) 
             const response = await fetch(endpoint);
             const data = await response.json();
             setTransactionsData(data)
-            console.log("data balance", data)
 
         } catch (error) {
             console.error("Error fetching data:", error);

@@ -1,8 +1,8 @@
 # from rest_framework import generics
-from .models import Account, BalanceDetail, CreditCard
+from .models import Account, BalanceDetail, CreditCard, CreditCardStatementDetail
 from django.db import transaction
 from django.http import Http404
-from .serializers import AccountSerializer, BalanceDetailSerializer, CreditCardSerializer
+from .serializers import AccountListSerializer, AccountSerializer, BalanceDetailSerializer, CreditCardSerializer, CreditCardStatementDetailSerializer
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -17,7 +17,7 @@ logger = logging.getLogger('django')
 
 class AccountsList(ListAPIView):
     queryset = Account.objects.all()
-    serializer_class = AccountSerializer
+    serializer_class = AccountListSerializer
 
 class AccountDetail(RetrieveAPIView):
     queryset = Account.objects.all()
@@ -110,29 +110,11 @@ class PixTransferAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CreditCardList(ListAPIView):
-    queryset = CreditCard.objects.all()
-    serializer_class = CreditCardSerializer
-
-class CreditCardStatementView(ListAPIView):
     serializer_class = CreditCardSerializer
 
     def get_queryset(self):
-        card_number = self.kwargs.get('card_number')
-        try:
-            return CreditCard.objects.filter(card_number=card_number)
-        except Exception as e:
-            logger.error(f"Error fetching credit card details for {card_number}: {e}")
-            raise Http404(f"Credit card with number {card_number} not found.")
-
-    def list(self, request, *args, **kwargs):
-        try:
-            queryset = self.filter_queryset(self.get_queryset())
-
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            logger.error(f"Error listing credit card details: {e}")
-            raise APIException('A server error occurred.')
+        account_id = self.kwargs.get('account_id')
+        return CreditCard.objects.filter(account_number__account_id=account_id)
 
 class CreditCardCreate(APIView):
     def post(self, request, format=None):
@@ -142,6 +124,12 @@ class CreditCardCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class CreditCardStatementsDetailView(ListAPIView):
+    serializer_class = CreditCardStatementDetailSerializer
+
+    def get_queryset(self):
+        card_number = self.kwargs.get('card_number')
+        return CreditCardStatementDetail.objects.filter(credit_card__card_number=card_number)
     
 class CreditCardDelete(DestroyAPIView):
     queryset = CreditCard.objects.all()
