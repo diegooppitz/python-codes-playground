@@ -3,7 +3,10 @@ from django.utils import timezone
 import random
 
 def generate_number_id():
-    return str(random.randint(10000000, 99999999))
+    while True:
+        potential_id = str(random.randint(10000000, 99999999))
+        if not CreditCard.objects.filter(card_number=potential_id).exists():
+            return potential_id
 
 class Account(models.Model):
     name = models.CharField(max_length=100)

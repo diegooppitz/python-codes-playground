@@ -109,6 +109,31 @@ class PixTransferAPIView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class CreditCardList(ListAPIView):
+    queryset = CreditCard.objects.all()
+    serializer_class = CreditCardSerializer
+
+class CreditCardStatementView(ListAPIView):
+    serializer_class = CreditCardSerializer
+
+    def get_queryset(self):
+        card_number = self.kwargs.get('card_number')
+        try:
+            return CreditCard.objects.filter(card_number=card_number)
+        except Exception as e:
+            logger.error(f"Error fetching credit card details for {card_number}: {e}")
+            raise Http404(f"Credit card with number {card_number} not found.")
+
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.filter_queryset(self.get_queryset())
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error(f"Error listing credit card details: {e}")
+            raise APIException('A server error occurred.')
+
 class CreditCardCreate(APIView):
     def post(self, request, format=None):
         logger.info(f"Request data: {request.data}")
