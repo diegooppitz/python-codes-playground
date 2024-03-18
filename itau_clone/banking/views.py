@@ -1,8 +1,8 @@
 # from rest_framework import generics
-from .models import Account, BalanceDetail, CreditCard, CreditCardStatementDetail
+from .models import Account, BalanceDetail, CreditCard, CreditCardStatementDetail, Loan
 from django.db import transaction
 from django.http import Http404
-from .serializers import AccountListSerializer, AccountSerializer, BalanceDetailSerializer, CreditCardSerializer, CreditCardStatementDetailSerializer
+from .serializers import AccountListSerializer, AccountSerializer, BalanceDetailSerializer, CreditCardSerializer, CreditCardStatementDetailSerializer, LoanSerializer
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -135,3 +135,24 @@ class CreditCardDelete(DestroyAPIView):
     queryset = CreditCard.objects.all()
     serializer_class = CreditCardSerializer
     lookup_field = 'card_number'
+
+class LoansAvailabilityView(APIView):
+    def get(self, request, account_id):
+        try:
+            account = Account.objects.get(account_id=account_id)
+            loans = Loan.objects.filter(account=account)
+            loans_serializer = LoanSerializer(loans, many=True)
+
+            # A lógica para determinar a disponibilidade pode variar
+            # Exemplo: considerando o saldo da conta para definir a disponibilidade
+            loan_availability = account.balance > Decimal('1000.00')  # Exemplo fictício
+            available_amount = account.balance - Decimal('1000.00') if loan_availability else Decimal('0.00')
+
+            return Response({
+                'loans': loans_serializer.data,
+                'loan_availability': loan_availability,
+                'available_amount': available_amount
+            })
+
+        except Account.DoesNotExist:
+            return Response({'error': 'Conta não encontrada'}, status=status.HTTP_404_NOT_FOUND)

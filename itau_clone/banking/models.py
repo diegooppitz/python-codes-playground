@@ -49,3 +49,13 @@ class CreditCardStatementDetail(models.Model):
 
     def __str__(self):
         return f"{self.description} - {self.amount} - {self.date}"
+
+class Loan(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='loans')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
+    created_at = models.DateTimeField(default=timezone.now)
+    due_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.account.name} - {self.amount} - {self.due_date}"

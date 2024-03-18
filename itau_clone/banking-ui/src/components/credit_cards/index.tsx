@@ -6,7 +6,7 @@ import './CreditCards.scss';
 
 const CreditCards: React.FC<{ creditCards: CreditCard[] }> = ({ creditCards }) => {
     return (
-        <div className='bank-menu-cards'>
+        <div className='credit-card-statements'>
             {creditCards?.length > 0 && creditCards.map((card, index) => (
                 <div className="bank-menu-cards-row" key={index}>
                     <div className="bank-menu-cards-cell"><a href={`/card-statements/${card.card_number}`}><h4>Cartão</h4><p>{card.card_name}</p></a></div>

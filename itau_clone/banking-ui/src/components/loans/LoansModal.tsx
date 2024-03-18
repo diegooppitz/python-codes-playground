@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Box, Typography, Button, Divider } from '@mui/material';
+import { Modal, Box, Typography, Button, Divider, useTheme } from '@mui/material';
 
 interface LoansModalProps {
     setIsModalOpen: (value: boolean) => void;
@@ -19,6 +19,8 @@ const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, se
     const [totalAmount, setTotalAmount] = useState(0);
     const [paymentsDates, setPaymentsDates] = useState<PaymentDate[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const theme = useTheme();
 
     const calculateLoanWithInterest = (): number => {
         const interestRate = 0.06; // 6% per month
@@ -70,36 +72,54 @@ const LoansModal: React.FC<LoansModalProps> = ({ isModalOpen, setIsModalOpen, se
                     onClose={() => setIsModalOpen(false)}
                     aria-labelledby="modal-title"
                     aria-describedby="modal-description"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
                 >
-                    <Box className="loans-modal-content">
-                        <Typography id="modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+                    <Box sx={{
+                        bgcolor: 'background.paper',
+                        p: 4,
+                        borderRadius: 2,
+                        boxShadow: 24,
+                        maxWidth: 400,
+                        width: '100%'
+                    }}>
+                        <Typography id="modal-title" variant="h6" component="h2" sx={{ mb: 2, fontWeight: 'bold' }}>
                             Solicitação de Empréstimo
                         </Typography>
 
                         <Divider sx={{ mb: 2 }} />
 
                         <Typography variant="body1" sx={{ mb: 2 }}>
-                            Valor total: R$ {totalAmount}
+                            Valor total: R$ {totalAmount.toLocaleString('pt-BR')}
                         </Typography>
 
-                        <Box sx={{ mb: 2 }}>
-                            {paymentsDates.map((paymentDate, index) => (
-                                <Typography key={index} variant="body2" sx={{ mb: 1 }}>
-                                    Parcela {index + 1} - {paymentDate.formattedDate}: R$ {paymentDate.installmentAmount}
+                        {paymentsDates.map((paymentDate, index) => (
+                            <Box key={index} sx={{ mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+                                <Typography variant="body2">
+                                    Parcela {index + 1} - {paymentDate.formattedDate}:
                                 </Typography>
-                            ))}
-                        </Box>
+                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                                    R$ {paymentDate.installmentAmount.toLocaleString('pt-BR')}
+                                </Typography>
+                            </Box>
+                        ))}
 
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button onClick={() => setIsModalOpen(false)} sx={{ mr: 1, color: "error.main" }}>Cancelar</Button>
-                            <Button variant="contained">Confirmar</Button>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', pt: 2 }}>
+                            <Button onClick={() => setIsModalOpen(false)} sx={{ mr: 2, color: theme.palette.error.main }}>
+                                Cancelar
+                            </Button>
+                            <Button variant="contained" color="primary">
+                                Confirmar
+                            </Button>
                         </Box>
                     </Box>
                 </Modal>
-
             )}
         </>
-    )
+    );
 }
 
 export default LoansModal;

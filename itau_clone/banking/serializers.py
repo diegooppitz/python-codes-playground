@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Account, BalanceDetail, CreditCard, CreditCardStatementDetail
+from .models import Account, BalanceDetail, CreditCard, CreditCardStatementDetail, Loan
 
 class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +41,7 @@ class BalanceDetailSerializer(serializers.ModelSerializer):
         model = BalanceDetail
         fields = '__all__'
 
+class LoanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Loan
+        fields = '__all__'

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AccountCreate, AccountDetail, AccountDelete, AccountsList, BalanceDetailView, PixTransferAPIView, CreditCardList, CreditCardStatementsDetailView, CreditCardCreate, CreditCardDelete
+from .views import AccountCreate, AccountDetail, AccountDelete, AccountsList, BalanceDetailView, PixTransferAPIView, CreditCardList, CreditCardStatementsDetailView, CreditCardCreate, CreditCardDelete, LoansAvailabilityView
 
 urlpatterns = [
     path('accounts/create/', AccountCreate.as_view(), name='account-create'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('credit-cards/create', CreditCardCreate.as_view(), name='credit-card-create'),
     path('credit-cards/delete/<str:card_number>/', CreditCardDelete.as_view(), name='credit-card-delete'),
     path('credit-cards/statements/<str:card_number>/', CreditCardStatementsDetailView.as_view(), name='credit-card-statements'),
+    path('loans/<str:account_id>/', LoansAvailabilityView.as_view(), name='loans-availability'),
 ]
